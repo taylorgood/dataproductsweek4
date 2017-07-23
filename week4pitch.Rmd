@@ -1,0 +1,50 @@
+---
+title: "Week 4 Reproducible Pitch: Central Limit Theorem Simulation"
+author: "T. G."
+date: "July 23, 2017"
+output: 
+    ioslides_presentation:
+    widescreen: TRUE
+    mathjax: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## This app is a teaching tool
+
+This simulation encourages discovery of the Central Limit THeorem. Its target audience is students of introductory-level statistics that may be familiar with the theorem but not comfortable with its visualization.
+
+Users control the event rate of a 1000 variable population where each variable is drawn from a Poisson distribution. Users then specify a sample size, how many samples to take, and whether to sample with or without replacement. Two graphs are generated: one of the kernel of the population with a normal curve overlayed, and one of the kernel of the sample means overlayed with a normal curve.
+
+As sample size and the number of samples increases, the kernel of the sample means will approximate a normal curve despite the kernel of the population appearing like a Poisson distribution
+
+## Underlying Theory
+
+Central Limit Theorem, from Wikipedia
+- " In more precise terms, given certain conditions, the arithmetic mean of a sufficiently large number of iterates of independent random variables, each with a well-defined (finite) expected value and finite variance, will be approximately normally distributed, regardless of the underlying distribution."
+
+Poisson Distribution, from Wikipedia
+- "a discrete probability distribution that expresses the probability of a given number of events occurring in a fixed interval of time and/or space if these events occur with a known average rate and independently of the time since the last event"
+- If $\lambda$ is the event rate within an interval and $k$ is the number of events within a given interval, then the probability mass function is given below
+ $$f(k, \lambda) = P( X = k) = \frac{\lambda^k e^{-\lambda}}{k!} $$
+
+## User Parameters
+
+- the Event Rate, $\lambda$, with min = 1, max = 1000, and a default value of 1
+- the number of samples to take from the population, min = 1, max = 1000
+- the sample size, min = 1, max = 50
+- whether or not to sample with replacement
+
+## Example of Population and Sample values with default event rate 
+
+```{r }
+examplePop <- rpois(1000, 1)
+head(examplePop)
+
+exampleMeans <-replicate(10, mean(sample(examplePop, 1, TRUE)) )
+head(exampleMeans)
+
+```
+
